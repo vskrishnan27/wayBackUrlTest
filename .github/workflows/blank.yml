@@ -46,3 +46,7 @@ jobs:
       - name: Running waybackurl
         run: | 
           echo assist.zoho.com | waybackurls > urls
+      
+      - name: Log urls
+        run: | 
+          cat urls     
