@@ -51,7 +51,7 @@ jobs:
 
       - name: Running waybackurl
         run: | 
-          cat passive_subdomains.txt | waybackurls > urls
+          cat passive_subdomains.txt | waybackurls | tee urls
       
       - name: Log urls
         run: | 
