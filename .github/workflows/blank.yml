@@ -41,12 +41,34 @@ jobs:
           GO111MODULE: on
         run: | 
           go install github.com/tomnomnom/waybackurls@latest
+          go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
         shell: bash
+
+      - name: Running SubFinder for passive DNS enumeration
+        run: |
+          subfinder -dL domains.txt -config subfinder-config.yaml -o passive_subdomains.txt
+        shell: bash 
 
       - name: Running waybackurl
         run: | 
-          echo assist.zoho.com | waybackurls > urls
+          cat passive_subdomains.txt | waybackurls > urls
       
       - name: Log urls
         run: | 
           cat urls     
+    
+      - name: Create local changes
+        run: |
+            git add .
+
+      - name: Commit results to Github
+        run: |
+          git config --local user.email "vskrishnan27@gmail.com"
+          git config --global user.name "vskrishnan27"
+          git commit -m "PD-Actions report" -a --allow-empty
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
