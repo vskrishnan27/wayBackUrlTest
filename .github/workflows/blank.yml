@@ -34,10 +34,16 @@ jobs:
       - name: Create local changes
         run: |
             git add .
+      - name: Debug Permissions
+        run: |
+          echo "GitHub Token Permissions:"
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X GET "https://api.github.com/repos/vskrishnan27/wayBackUrlTest/collaborators"
+          echo "Repository URL:"
+          git remote -v
 
       - name: Commit results to Github
         run: |
-          git config --local user.email "vskrishnan27@gmail.com"
+          git config --global user.email "vskrishnan27@gmail.com"
           git config --global user.name "vskrishnan27"
           git commit -m "PD-Actions report" -a --allow-empty
 
