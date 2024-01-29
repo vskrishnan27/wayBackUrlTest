@@ -45,14 +45,9 @@ jobs:
           go install github.com/tomnomnom/waybackurls@latest
         shell: bash
 
-      - name: Running SubFinder for passive DNS enumeration
-        run: |
-          subfinder -dL domains.txt -config subfinder-config.yaml -o passive_subdomains.txt
-        shell: bash 
-
       - name: Running waybackurl
         run: | 
-          cat passive_subdomains.txt | waybackurls | tee urls
+          echo "test" >> urls
       
       - name: Log urls
         run: | 
