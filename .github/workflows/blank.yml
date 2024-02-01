@@ -26,7 +26,7 @@ jobs:
       - name: Running waybackurl
         run: | 
           echo "test" >> urls
-           echo "${{ secrets.vsk }}"
+           echo "${{ secrets.VSK }}"
       
       - name: Log urls
         run: | 
